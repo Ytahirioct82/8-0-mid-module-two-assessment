@@ -30,7 +30,12 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  if (movies.length === 0) {
+    throw `array is empty.`;
+  }
+  return movies.map((element) => element.title);
+}
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,7 +55,12 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+function checkIfAnyMovieHasRating(movies, rating = "G") {
+  if (movies.length === 0) {
+    throw `array is empty.`;
+  }
+  return movies.some((element) => rating === element.rated);
+}
 
 /**
  * findById()
@@ -68,7 +78,16 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length === 0) {
+    throw `If the ID does not match any movie, return null.`;
+  }
+  const movieWithId = movies.find((element) => element.imdbID === id);
+  if (movieWithId) {
+    return movieWithId;
+  }
+  return null;
+}
 
 /**
  * filterByGenre()
@@ -92,7 +111,12 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  if (movies.length === 0) {
+    throw `If no movies match the inputted genre, return [].`;
+  }
+  return movies.filter((element) => element.genre.toLowerCase().includes(genre.toLowerCase()));
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -118,12 +142,19 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  if (movies.length === 0) {
+    throw `array is empty.`;
+  }
+
+  return movies.filter((element) => element.released.split(" ")[element.released.split(" ").length - 1] <= year);
+}
 
 /**
  * getRottenTomatoesScoreByMovie()
  * -----------------------------
- * Transform each movie, returning an array of objects where the key is the title of the movie and the value is the score received from Rotten Tomatoes. If there are no movies, throw an error with a message.
+ * Transform each movie, returning an array of objects where the key is the title of the movie and the value is the score received from Rotten Tomatoes. 
+ * If there are no movies, throw an error with a message.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @returns {Object[]|Error} An array of movie objects where the key is the movie title and the value is the score received from Rotten Tomatoes.
  * 
@@ -144,7 +175,15 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+function getRottenTomatoesScoreByMovie(movies) {
+  if (movies.length === 0) {
+    throw `array is empty.`;
+  }
+  const obj = {};
+  findMovierating = movies.map((element) => element.ratings.find((rate) => rate.source === "Rotten Tomatoes"));
+  movies.map((element, i) => (obj.element.title = findMovierating[i].value));
+  return obj;
+}
 
 // Do not change anything below this line.
 module.exports = {
